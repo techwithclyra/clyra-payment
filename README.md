@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clyra Fee Portal
 
-## Getting Started
+A mobile-first fee management platform for Clyra: admin-managed students and custom
+installment plans, UPI-based student payments with admin verification, receipts, analytics,
+and email notifications.
 
-First, run the development server:
+**Stack:** Next.js (App Router) + Tailwind CSS · Supabase (Postgres, Auth, Storage) · Vercel
+
+## Getting started
 
 ```bash
+npm install
+cp .env.example .env.local   # fill in your Supabase project details
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+See [docs/SETUP.md](docs/SETUP.md) for the full setup walkthrough: creating the Supabase
+project, running the database migrations, creating the first admin account, configuring
+Resend for email, and deploying to Vercel.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `supabase/migrations/` — SQL schema, RLS policies, triggers (run in order)
+- `src/app/` — routes: `(auth)` public, `admin/` admin panel, `(student)` student portal, `api/` route handlers
+- `src/actions/` — Server Actions (all mutations)
+- `src/lib/` — Supabase clients, payment provider abstraction, email, PDF, export, validation
+- `src/components/` — UI components grouped by domain
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run lint` — ESLint
+- `node scripts/create-admin.mjs <email> <password> [name]` — create the first admin account
+"# clyra-payment" 
