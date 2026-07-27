@@ -75,7 +75,7 @@ export function NewPlanBuilder({ studentId }: { studentId: string }) {
     <Card>
       <CardHeader>
         <CardTitle>Build installment plan</CardTitle>
-        <CardDescription>The first installment becomes payable immediately; the rest unlock in order as each is approved.</CardDescription>
+        <CardDescription>Every installment is payable immediately — students can pay any of them, in any order.</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="flex flex-col gap-3">

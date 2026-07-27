@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 import { createStudent, updateStudent } from "@/actions/students.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -149,9 +150,8 @@ export function StudentForm({
               <Separator className="sm:col-span-2" />
               <div className="flex flex-col gap-2 sm:col-span-2">
                 <Label htmlFor="initialPassword">Initial password (optional)</Label>
-                <Input
+                <PasswordInput
                   id="initialPassword"
-                  type="text"
                   placeholder="Leave blank for OTP-only sign in"
                   value={initialPassword}
                   onChange={(e) => setInitialPassword(e.target.value)}

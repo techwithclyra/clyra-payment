@@ -35,13 +35,15 @@ export async function createInstallmentPlan(input: unknown): Promise<Installment
     return { success: false, error: "This student already has an installment plan" };
   }
 
+  // Every installment is payable immediately -- no sequential locking. Students can pay any
+  // or all installments in any order; nothing waits on a prior one being approved first.
   const rows = installments.map((row, index) => ({
     student_id: studentId,
     installment_name: row.installmentName,
     amount: row.amount,
     due_date: row.dueDate,
     sequence_no: index + 1,
-    status: index === 0 ? ("pending" as const) : ("locked" as const),
+    status: "pending" as const,
   }));
 
   const { error } = await supabase.from("installments").insert(rows);
@@ -78,7 +80,7 @@ export async function addInstallment(input: unknown): Promise<InstallmentActionR
     amount,
     due_date: dueDate,
     sequence_no: nextSeq,
-    status: nextSeq === 1 ? "pending" : "locked",
+    status: "pending",
   });
 
   if (error) {

@@ -36,7 +36,7 @@ export default async function StudentInstallmentsPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Installments</h1>
         <p className="text-sm text-muted-foreground">
-          Only the current due installment can be paid; the rest unlock as each is approved.
+          All installments are open for payment — pay any of them at any time.
         </p>
       </div>
       <div className="flex flex-col gap-3">

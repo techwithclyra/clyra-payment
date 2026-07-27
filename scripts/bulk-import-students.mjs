@@ -9,7 +9,7 @@ const admin = createClient(supabaseUrl, serviceRoleKey, {
 });
 
 // due dates for the three-installment plan every row uses
-const DUE_DATES = ["2026-08-05", "2026-09-05", "2026-10-05"];
+const DUE_DATES = ["2026-08-01", "2026-09-01", "2026-10-01"];
 
 const students = [
   { name: "Jaikumar", college: "Dhanlakshmi", dept: "Artificial Intelligence and Data Science", phone: "8778977855", email: "jaikumarjanani1985@gmail.com", fee: 699, password: "#Jaikumar#" },
@@ -39,10 +39,12 @@ const students = [
   { name: "S. Bala Priya", college: "VSB Engineering College, Karur", dept: "BE CSE (AIML)", phone: "6382297635", email: "jeyalakshmi97635@gmail.com", fee: 699, password: "#SBalaPriya#" },
   { name: "Inthira S", college: "VSBCETC", dept: "2nd Year IT", phone: "9344713554", email: "inthiravisa8@gmail.com", fee: 699, password: "#InthiraS#" },
   { name: "Krisnabala", college: "Sastra Deemed University", dept: "CSE", phone: "9360780363", email: "krisnabalamurugan@gmail.com", fee: 500, password: "#Krisnabala#" },
-  // Sanjana (row 28) skipped: no email provided in the source data.
+  { name: "Sanjana", college: "Gnanamani College of Technology", dept: "CSE", phone: "9025775425", email: "sanjana2024m0310@gmail.com", fee: 500, password: "#Sanjana#" },
   { name: "Ragavi R", college: "SKP Engineering College", dept: "Electronics and Communication Engineering", phone: "8838197145", email: "ragavi0005ragavi005@gmail.com", fee: 399, password: "#RagaviR#" },
   { name: "Ranjani R", college: "SKP Engineering College", dept: "B.E. – ECE", phone: "9360487295", email: "ranjaniraja092007@gmail.com", fee: 399, password: "#RanjaniR#" },
   { name: "Keerthana", college: "KLNCE", dept: "AI&DS", phone: "8667263315", email: "keerthna31.ks@gmail.com", fee: 699, password: "#Keerthana#" },
+  { name: "Sharanya", college: "Jesse degree College", dept: "DSA", phone: "8971956943", email: "sharanyashankar2006@gmail.com", fee: 699, password: "#Sharanya#" },
+  { name: "K Supriya", college: "Amrita college of Engineering and Technology", dept: "DSA", phone: "8270263317", email: "kp6245896@gmail.com", fee: 699, password: "#KSupriya#" },
 ];
 
 let created = 0;
@@ -93,13 +95,14 @@ for (const s of students) {
     continue;
   }
 
+  // All installments payable immediately -- no sequential locking.
   const rows = DUE_DATES.map((due, i) => ({
     student_id: student.id,
     installment_name: `Month ${i + 1}`,
     amount: s.fee,
     due_date: due,
     sequence_no: i + 1,
-    status: i === 0 ? "pending" : "locked",
+    status: "pending",
   }));
 
   const { error: installError } = await admin.from("installments").insert(rows);
